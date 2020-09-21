@@ -1,0 +1,13 @@
+include ':shiyan4'
+include ':shiyan3'
+include ':shiyan2'
+include ':shiyan1'
+include ':zuoye8'
+include ':zuoye7'
+include ':zuoye6'
+include ':zuoye5'
+include ':zuoye4'
+include ':zuoye3'
+include ':zuoye2'
+include ':app'
+rootProject.name = "My Application"
