@@ -56,7 +56,6 @@ public class Zuoye5Activity extends AppCompatActivity {
                 editor.apply();
             }
         });
-
         buttonRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
