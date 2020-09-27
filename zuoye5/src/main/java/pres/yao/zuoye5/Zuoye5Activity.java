@@ -41,6 +41,7 @@ public class Zuoye5Activity extends AppCompatActivity {
         preferences = getSharedPreferences(SharedPreferencesFileName,MODE_PRIVATE);
         editor = preferences.edit();
         resolver = this.getContentResolver();
+
         Button buttonWrite = (Button)findViewById(R.id.writeButton);
         Button buttonRead = (Button)findViewById(R.id.readButton);
         Button buttonFileWrite = (Button)findViewById(R.id.writeFileButton);
