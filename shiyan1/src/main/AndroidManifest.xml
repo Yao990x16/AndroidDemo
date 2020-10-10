@@ -9,6 +9,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".BinaryConversion">
+        </activity>
+        <activity android:name=".UnitConversion"/>
+        <activity android:name=".Help"/>
         <activity android:name=".Shiyan1Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
