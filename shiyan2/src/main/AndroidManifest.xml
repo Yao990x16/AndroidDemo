@@ -15,6 +15,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <provider
+                android:name=".DBContentProvider"
+                android:authorities="pres.yao.shiyan2"
+                android:enabled="true"
+                android:exported="true" />
+        <activity android:name=".WorddetailsActivity"></activity>
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".WordnoteActivity" />
         <activity android:name=".Shiyan2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

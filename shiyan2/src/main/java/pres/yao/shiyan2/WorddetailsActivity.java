@@ -31,7 +31,7 @@ public class WorddetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_worddetails);
+        setContentView(R.layout.activity_word_details);
 
         tvWord=findViewById(R.id.tv_word);
         tvSymbolUS=findViewById(R.id.tv_symbolUS);

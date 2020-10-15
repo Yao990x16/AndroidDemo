@@ -65,7 +65,7 @@ public class WordnoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wordnote);
+        setContentView(R.layout.activity_word_note);
 
         tvSearchatnote=findViewById(R.id.tv_searchatnote);
         btnSearchatnote=findViewById(R.id.btn_searchatnote);

@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import org.xml.sax.InputSource;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLEncoder;
 
 /**
