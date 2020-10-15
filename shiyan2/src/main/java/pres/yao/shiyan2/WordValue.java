@@ -38,8 +38,6 @@ public class WordValue implements Serializable, Comparable<WordValue>{
         this.interpret = "";
         this.sentOrig = "";
         this.sentTrans = "";
-
-
     }
 
     public ArrayList<String> getOrigList() {
@@ -144,9 +142,7 @@ public class WordValue implements Serializable, Comparable<WordValue>{
         System.out.println(this.interpret);
         System.out.println(this.sentOrig);
         System.out.println(this.sentTrans);
-
     }
-
 
     /**
      * 使得对象可以进行排序

@@ -93,11 +93,11 @@ public class Shiyan2Activity extends AppCompatActivity {
                             wordValue = dictionary.getWordFromInternet(etSearch.getText().toString());
                             if (wordValue != null && wordValue.getInterpret() != null && !"".equals(wordValue.getPsA())) {
                                 showResearchWordInterpret(wordValue);
-                                Log.d("MainActivity", "if条件");
-                                Log.d("MainActivity", "释义"+wordValue.getInterpret());
+                                Log.d("Shiyan2Activity", "if条件");
+                                Log.d("Shiyan2Activity", "释义"+wordValue.getInterpret());
                             } else {
                                 showToastInThread("未找到相关释义");
-                                Log.d("MainActivity", "else条件");
+                                Log.d("Shiyan2Activity", "else条件");
                             }
                         }
                     }
@@ -188,7 +188,8 @@ public class Shiyan2Activity extends AppCompatActivity {
     private boolean isLand() {
         //获取设置的配置信息
         Configuration mConfiguration = this.getResources().getConfiguration();
-        int ori = mConfiguration.orientation; //获取屏幕方向
+        //获取当前屏幕方向
+        int ori = mConfiguration.orientation;
         if (ori == mConfiguration.ORIENTATION_LANDSCAPE) {
             //横屏
             return true;

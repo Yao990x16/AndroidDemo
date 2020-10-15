@@ -17,8 +17,8 @@ public class DBContentProvider extends ContentProvider {
     public static final int DICT_NUM = 0;
 
     //包路径authority
-    public static final String AUTHORITY = "com.study.electronic_dictionary";
-
+    public static final String AUTHORITY = "pres.yao.shiyan2";
+    //匹配Uri,进行文本过滤
     private static UriMatcher uriMatcher;
     private Database database;
 
@@ -51,7 +51,7 @@ public class DBContentProvider extends ContentProvider {
         // at the given URI.
         switch (uriMatcher.match(uri)){
             case DICT_NUM:
-                return "vnd.android.cursor.dir/vnd.com.study.electronic_dictionary.dict";
+                return "vnd.android.cursor.dir/vnd.pres.yao.shiyan2.dict";
         }
         return null;
     }
