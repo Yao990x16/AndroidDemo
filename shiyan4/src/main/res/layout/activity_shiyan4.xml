@@ -26,7 +26,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="24dp"
             android:layout_marginBottom="24dp"
-            android:background="@mipmap/next"
+            android:background="@drawable/next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_begin" />
 
@@ -36,7 +36,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="85dp"
             android:layout_marginBottom="24dp"
-            android:background="@mipmap/front"
+            android:background="@drawable/front"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -73,7 +73,7 @@
             android:layout_height="67dp"
             android:layout_marginStart="50dp"
             android:layout_marginBottom="10dp"
-            android:background="@mipmap/ordered"
+            android:background="@drawable/ordered"
             app:layout_constraintBottom_toTopOf="@+id/plan"
             app:layout_constraintStart_toStartOf="parent" />
 

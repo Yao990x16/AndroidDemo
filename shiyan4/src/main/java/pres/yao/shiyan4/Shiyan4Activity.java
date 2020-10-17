@@ -1,6 +1,7 @@
 package pres.yao.shiyan4;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,10 +19,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class Shiyan4Activity extends AppCompatActivity implements View.OnClickListener{
     MediaPlayer player = new MediaPlayer();
@@ -45,7 +43,6 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
     private int all_time;
     // 计时器
     private Timer timer;
-    boolean flag;
 
     private final Handler mHandler = new Handler(new Handler.Callback() {
         @Override
@@ -68,6 +65,7 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public void play(int i) {
         if(mPlaying) {
             if (play_index != i) {//选中了未在正在播放的曲子
@@ -145,11 +143,9 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
         }
         else {
             int ran;
-            while (true){
+            do {
                 ran = random();
-                if(ran!=play_index)
-                    break;
-            }
+            } while (ran == play_index);
             play(ran);
         }
     }
@@ -188,23 +184,18 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults){
-        switch (requestCode){
-            case 1:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.
-                        PERMISSION_GRANTED){
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("audio/*");
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    startActivityForResult(intent, 1);
-                }
-                else{
-                    Toast.makeText(this, "拒绝访问", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-                break;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults){
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.
+                    PERMISSION_GRANTED) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("audio/*");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent, 1);
+            } else {
+                Toast.makeText(this, "拒绝访问", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     @Override
@@ -246,12 +237,12 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
 
     private void initMediaPlayer(){
         try{
-            musicList = new ArrayList<Music>();
+            musicList = new ArrayList<>();
             file = getFileStreamPath("music");
             File[] subFile = file.listFiles();
             Toast.makeText(this, "已添加"+file.getPath()+"中的文件", Toast.LENGTH_SHORT).show();
             int num = 0;
-            for (int i = 0; i < subFile.length; i++) {
+            for (int i = 0; i < Objects.requireNonNull(subFile).length; i++) {
                 if (!subFile[i].isDirectory()) {
                     String filename = subFile[i].getName();
                     if (filename.trim().toLowerCase().endsWith(".mp3")) {
@@ -264,7 +255,7 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
             play_index = -1;
             model = true;
         }
-        catch(Exception e){ }
+        catch(Exception ignored){ }
     }
     @Override
     public void onClick(View view) {
@@ -278,17 +269,16 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
                 }
                 else {
                     int ran;
-                    while (true){
+                    do {
                         ran = random();
-                        if(ran!=play_index)
-                            break;
-                    }
+                    } while (ran == play_index);
                     play(ran);
                 }
                 break;
             case R.id.btn_begin:
 
-                if(btn_begin.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.play_small).getConstantState())){
+                if(Objects.equals(btn_begin.getBackground().getConstantState(), Objects.requireNonNull(ContextCompat.getDrawable(this,
+                        R.drawable.play_small)).getConstantState())){
 
                     btn_begin.setBackground(getResources().getDrawable(R.drawable.pause,getTheme()));
                     play(play_index);
@@ -303,7 +293,7 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
                 play_next();
                 break;
             case R.id.btn_model:
-                if(btn_model.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ordered,getTheme()).getConstantState())){
+                if(Objects.equals(btn_model.getBackground().getConstantState(), getResources().getDrawable(R.drawable.ordered, getTheme()).getConstantState())){
                     btn_model.setBackground(getResources().getDrawable(R.drawable.unordered,getTheme()));
                     Toast.makeText(Shiyan4Activity.this, "随机播放模式",
                             Toast.LENGTH_SHORT).show();
@@ -323,7 +313,7 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
     protected void onDestroy(){
         super.onDestroy();
         if(player != null){
-            player.stop();;
+            player.stop();
             player.release();
         }
     }
@@ -331,7 +321,7 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
 
     public class MyAdapter extends BaseAdapter {
 
-        private LayoutInflater mInflater;
+        private final LayoutInflater mInflater;
 
         public MyAdapter(Context context) {
             this.mInflater = LayoutInflater.from(context);
@@ -352,9 +342,9 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
         }
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
+            ViewHolder holder;
             if (convertView == null) {
-                holder=new ViewHolder();
+                holder= new ViewHolder();
                 convertView = mInflater.inflate(R.layout.music_item, null);
                 holder.name = (Button)convertView.findViewById(R.id.name);
                 holder.delete = (Button)convertView.findViewById(R.id.delete);
@@ -381,14 +371,14 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private final class ViewHolder {
+    private static final class ViewHolder {
         private Button delete;
         private Button name;
     }
 
     public void list_delete(int i){
         musicList.remove(i);
-        List<Music> mid = new ArrayList<Music>();
+        List<Music> mid = new ArrayList<>();
         for(int j =0;j<musicList.size();j++){
             Music music = new Music(musicList.get(j).getPath(),musicList.get(j).getName(),j);
             mid.add(music);
@@ -434,7 +424,7 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void run() {
                 if(mPlaying) {
-                    play_time = player.getCurrentPosition();;
+                    play_time = player.getCurrentPosition();
                     Message msg = Message.obtain();
                     mHandler.sendMessageDelayed(msg, 1);
                 }
@@ -454,13 +444,14 @@ public class Shiyan4Activity extends AppCompatActivity implements View.OnClickLi
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 1) {
                 Uri uri = data.getData();
-                String add_path = "/sdcard/";
-                String[] s = uri.getPath().split(":");
+                StringBuilder add_path = new StringBuilder("/sdcard/");
+                assert uri != null;
+                String[] s = Objects.requireNonNull(uri.getPath()).split(":");
                 s = s[1].split("/");
                 for(int i = 0; i < s.length-1;i++){
-                    add_path = add_path + s[i] + "/";
+                    add_path.append(s[i]).append("/");
                 }
-                Music music = new Music(add_path,s[s.length-1],musicList.size());
+                Music music = new Music(add_path.toString(),s[s.length-1],musicList.size());
                 musicList.add(music);
                 MyAdapter adapter = new MyAdapter(this);
                 list_view.setAdapter(adapter);
