@@ -93,11 +93,11 @@ public class Shiyan2Activity extends AppCompatActivity {
                             wordValue = dictionary.getWordFromInternet(etSearch.getText().toString());
                             if (wordValue != null && wordValue.getInterpret() != null && !"".equals(wordValue.getPsA())) {
                                 showResearchWordInterpret(wordValue);
-                                Log.d("Shiyan2Activity", "if条件");
-                                Log.d("Shiyan2Activity", "释义"+wordValue.getInterpret());
+                                Log.d("TAG", "if条件");
+                                Log.d("TAG", "释义"+wordValue.getInterpret());
                             } else {
                                 showToastInThread("未找到相关释义");
-                                Log.d("Shiyan2Activity", "else条件");
+                                Log.d("TAG", "else条件");
                             }
                         }
                     }
