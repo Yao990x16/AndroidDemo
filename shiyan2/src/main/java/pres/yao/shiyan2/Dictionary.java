@@ -25,10 +25,14 @@ public class Dictionary {
     public Dictionary(Context context,String tableName){
         this.context=context;
         this.tableName=tableName;
-        dbHelper=new Database(context, tableName);     //这里要用到前面的DataBaseHelper类，在Dict的构造方法中实例化该类，
+        //这里要用到前面的DataBaseHelper类，在Dict的构造方法中实例化该类，
+        dbHelper=new Database(context, tableName);
         //并且调用下面两个方法获得dbR和dbW,用于完成对数据库的增删改查操作。
         //这里吧dbR dbW作为成员变量目的是避免反复实例化dbR  dbW造成数据库指针泄露。
-
+        //获取数据库对象
+        //1.如果数据库不存在,则先创建,再打开
+        //2.如果数据库存在,但是版本没变化,直接打开
+        //3.如果数据库存在,但是版本号升高了,则调用升级方法再打开
         dbR=dbHelper.getReadableDatabase();
         dbW=dbHelper.getWritableDatabase();
 
