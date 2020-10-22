@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_height="wrap_content"
       android:layout_width="wrap_content">
-    <item
+    <!--<item
             android:id="@+id/add_item"
-            android:title="add"/>
+            android:title="添加"/>-->
     <item
             android:id="@+id/help_item"
-            android:title="help"/>
+            android:title="帮助"/>
     <item
             android:id="@+id/exit_item"
-            android:title="exit"/>
+            android:title="退出"/>
 </menu>
