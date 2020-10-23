@@ -1,20 +1,17 @@
 package pres.yao.shiyan3;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.RecyclerView;
 
-public class Shiyan3Activity extends AppCompatActivity {
+public class RecordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shiyan3);
+        setContentView(R.layout.activity_record);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
