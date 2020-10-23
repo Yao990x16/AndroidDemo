@@ -51,7 +51,13 @@ public class MusicAdapter extends BaseAdapter {
     }
 
     public void remove(int index){
-        musicList.remove(index);
+        if(index<0){
+            currentPos = 0;
+            return;
+        }else {
+            musicList.remove(index);
+        }
+        notifyDataSetChanged();
     }
 
     public void refreshDataSet(){

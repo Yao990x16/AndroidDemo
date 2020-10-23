@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
@@ -16,6 +17,10 @@ public class MusicService extends Service {
     private MediaPlayer mPlayer;
     private int seekLength = 0;
     private int currentIndex = -1;
+
+    public void setMusicList(List<Music> musicList) {
+        this.musicList = musicList;
+    }
 
     private List<Music> musicList;
 
@@ -57,7 +62,8 @@ public class MusicService extends Service {
         public void Play() {
             mPlayer.reset();
             Uri path = Uri.parse(musicList.get(currentIndex).getMusic_path());
-
+            Log.e("PATH", String.valueOf(path));
+            Log.e("PATH", String.valueOf(musicList.size()));
             try {
                 mPlayer.setDataSource(String.valueOf(path));
                 mPlayer.prepare();
@@ -66,6 +72,11 @@ public class MusicService extends Service {
             }
             mPlayer.seekTo(seekLength);
             mPlayer.start();
+        }
+
+        @Override
+        public void Stop() {
+            mPlayer.stop();
         }
 
         @Override
@@ -124,6 +135,11 @@ public class MusicService extends Service {
         @Override
         public void setCurrentIndex(int currentIdx) {
             currentIndex = currentIdx;
+        }
+
+        @Override
+        public void setList(List<Music> musicList) {
+            setMusicList(musicList);
         }
     }
 }

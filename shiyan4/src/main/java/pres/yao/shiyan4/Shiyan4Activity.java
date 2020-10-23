@@ -94,7 +94,10 @@ public class Shiyan4Activity extends AppCompatActivity{
         btnPlay.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.pause));
         isPlaying = true;
     }
-
+    //重置进度条
+    private void resetMusicSeekBar(){
+        musicSeekBar.setProgress(0);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +107,7 @@ public class Shiyan4Activity extends AppCompatActivity{
         //获取视图
         initView();
         //设置列表标题
-        String title = "音乐列表";
+        String title = "本地音乐数量";
         title += "（总数："+ musicList.size() + "）";
         listTitle.setText(title);
         //为mListView注册上下文菜单
@@ -158,7 +161,7 @@ public class Shiyan4Activity extends AppCompatActivity{
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPlaying == true){
+                if (isPlaying){
                     myBinder.PlayPrev();
                     updateState();
                 }
@@ -168,7 +171,7 @@ public class Shiyan4Activity extends AppCompatActivity{
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPlaying == true){
+                if (isPlaying){
                     myBinder.PlayNext();
                     updateState();
                 }
@@ -178,14 +181,14 @@ public class Shiyan4Activity extends AppCompatActivity{
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPlaying == true){
+                if (isPlaying){
                     btnPlay.setImageBitmap(BitmapFactory.decodeResource(
                             getResources(),R.drawable.play));
                     isPlaying = false;
                     myBinder.Pause();
                     return;
                 }
-                if (isPlaying == false){
+                if (!isPlaying){
                     if (myBinder.getCurrentIndex() == -1){
                         myBinder.setCurrentIndex(0);
                         mListAdapter.setFocusItemPos(0);
@@ -265,11 +268,24 @@ public class Shiyan4Activity extends AppCompatActivity{
             case 2:
                 //删除当前选中的音乐
                 musicList.remove(currentSel);
+                myBinder.Stop();
+                updateState();
+                resetMusicSeekBar();
+
+                Log.e("TAG", String.valueOf(musicList.size()));
                 //通知适配器更新数据
                 mListAdapter.notifyDataSetChanged();
                 //设置ListView自动显示到最新数据
                 mListView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+                //设置适配
                 mListView.setAdapter(mListAdapter);
+                //将更新后的list传回service
+                myBinder.setList(musicList);
+                //删除后自动播放下一首,
+                myBinder.Play();
+                updateState();
+
+
             default:
                 break;
         }

@@ -1,5 +1,7 @@
 package pres.yao.shiyan4;
 
+import java.util.List;
+
 public interface MyBinderInterface {
     //暂停
     void Pause();
@@ -7,6 +9,8 @@ public interface MyBinderInterface {
     void Resume();
     //播放
     void Play();
+    //停止播放
+    void Stop();
     //播放下一首
     void PlayNext();
     //播放上一首
@@ -25,4 +29,6 @@ public interface MyBinderInterface {
     int getCurrentIndex();
     //设置当前索引
     void setCurrentIndex(int currentIdx);
+    //获取listvie更新后的musiclist
+    void setList(List<Music> musicList);
 }
