@@ -37,7 +37,7 @@ public class Zuoye4Activity extends AppCompatActivity {
                 }catch (UnsupportedEncodingException e){
                     e.printStackTrace();
                 }
-                startActivity(new Intent(Intent.ACTION_DIAL,Uri.parse("tel"+encodePhonenumber)));
+                startActivity(new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+encodePhonenumber)));
             }
         });
     }
