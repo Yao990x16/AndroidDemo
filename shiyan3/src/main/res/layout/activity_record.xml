@@ -7,9 +7,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".RecordActivity">
-    <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints">
-    </ListView>
+   <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/record_recyclerview"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+   </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
